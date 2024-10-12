@@ -1,5 +1,6 @@
 import os
 import json
+from flask import Flask, request, jsonify
 from langchain_community.chat_models import ChatPerplexity
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
@@ -8,6 +9,8 @@ from langchain.schema import HumanMessage
 from dotenv import load_dotenv
 
 load_dotenv()
+
+app = Flask(__name__)
 
 chat = ChatPerplexity(
     temperature=0.7,
@@ -30,7 +33,7 @@ flight_schemas = [
 ]
 
 flight_prompt, flight_parser = create_structured_prompt(
-    "Find current round-trip flights from LAX to Seattle for a week-long trip from 10/20/2024 to 10/27/2024. List top 3 options.",
+    "Find current round-trip flights from {flightFrom} to {flightTo} for a week-long trip from {flightDate} to {flightReturnDate}. List top 3 options.",
     flight_schemas
 )
 
@@ -43,7 +46,7 @@ accommodation_schemas = [
 ]
 
 accommodation_prompt, accommodation_parser = create_structured_prompt(
-    "Find current affordable hotel or Airbnb options in Seattle for a stay from 10/20/2024 to 10/27/2024. List top 3 options.",
+    "Find current affordable hotel or Airbnb options in {flightTo} for a stay from {flightDate} to {flightReturnDate}. List top 3 options.",
     accommodation_schemas
 )
 
@@ -55,13 +58,13 @@ trip_schemas = [
 
 final_prompt, final_parser = create_structured_prompt(
     """
-    Based on the provided flight and accommodation information, create a 1-week trip to Seattle from 10/20/2024 to 10/27/2024 with a total budget of $2000 USD.
+    Based on the provided flight and accommodation information, create a {duration} trip to {flightTo} from {flightDate} to {flightReturnDate} with a total budget of {budget} USD.
     Include flights, accommodation, and a comprehensive daily itinerary with activities, dining, and transportation.
     
     Flight options: {flight_info}
     Accommodation options: {accommodation_info}
     Only give me the json response, not the budget breakdown or any other text that would cause the response to be invalid for
-    json.loads().
+    json.loads(). In the json response, please do not include any comments.
     """,
     trip_schemas
 )
@@ -79,19 +82,57 @@ flight_chain = LLMChain(llm=chat, prompt=flight_prompt)
 accommodation_chain = LLMChain(llm=chat, prompt=accommodation_prompt)
 final_chain = LLMChain(llm=chat, prompt=final_prompt)
 
-flight_info = run_chain_with_retry(flight_chain, {"format_instructions": flight_parser.get_format_instructions()})
-accommodation_info = run_chain_with_retry(accommodation_chain, {"format_instructions": accommodation_parser.get_format_instructions()})
+@app.route('/trip-info', methods=['POST'])
+def trip_info():
+    try:
+        if request.is_json:
+            data = request.get_json()
+            flightFrom = data.get('flightFrom')
+            flightTo = data.get('flightTo')
+            flightDate = data.get('flightDate')
+            flightReturnDate = data.get('flightReturnDate')
+            duration = data.get('duration')
+            budget = data.get('budget')
 
-final_response = run_chain_with_retry(final_chain, {
-    "flight_info": flight_info,
-    "accommodation_info": accommodation_info,
-    "format_instructions": final_parser.get_format_instructions()
-})
+            flight_info = run_chain_with_retry(flight_chain, {
+                "flightFrom": flightFrom,
+                "flightTo": flightTo,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "format_instructions": flight_parser.get_format_instructions()
+            })
+            
+            accommodation_info = run_chain_with_retry(accommodation_chain, {
+                "flightTo": flightTo,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "format_instructions": accommodation_parser.get_format_instructions()
+            })
 
-try:
-    parsed_response = final_parser.parse(final_response)
-    print(json.dumps(parsed_response, indent=2))
-except Exception as e:
-    print("Error parsing response:", e)
-    print("Raw response:")
-    print(final_response)
+            final_response = run_chain_with_retry(final_chain, {
+                "flight_info": flight_info,
+                "accommodation_info": accommodation_info,
+                "flightTo": flightTo,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "duration": duration,
+                "budget": budget,
+                "format_instructions": final_parser.get_format_instructions()
+            })
+
+            # Log the raw response for debugging
+            print("Raw response:", final_response)
+
+            # Attempt to parse the JSON response
+            try:
+                parsed_response = final_parser.parse(final_response)
+                return jsonify(parsed_response)
+            except json.JSONDecodeError as e:
+                return jsonify({"error": "Got invalid JSON object. Error: " + str(e), "raw_response": final_response}), 500
+        else:
+            return jsonify({"error": "Request content type must be application/json"}), 415
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
