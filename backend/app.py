@@ -5,7 +5,6 @@ from langchain_community.chat_models import ChatPerplexity
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 from langchain.output_parsers import StructuredOutputParser, ResponseSchema
-from langchain.schema import HumanMessage
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,7 +12,7 @@ load_dotenv()
 app = Flask(__name__)
 
 chat = ChatPerplexity(
-    temperature=0.7,
+    temperature=0.4,
     model="llama-3.1-sonar-small-128k-online",
     pplx_api_key=os.environ.get("PERPLEXITY_API_KEY")
 )
@@ -27,6 +26,7 @@ def create_structured_prompt(template, response_schemas):
 flight_schemas = [
     ResponseSchema(name="airline", description="The name of the airline"),
     ResponseSchema(name="price", description="The price of the flight"),
+    ResponseSchema(name="link", description="The link to the flight"),
     ResponseSchema(name="first_flight_depart", description="The departure time of the first flight"),
     ResponseSchema(name="first_flight_arrive", description="The arrival time of the first flight"),
     ResponseSchema(name="second_flight_depart", description="The departure time of the second flight"),
@@ -52,9 +52,26 @@ accommodation_schemas = [
 ]
 
 accommodation_prompt, accommodation_parser = create_structured_prompt(
-    "Find current affordable hotel or Airbnb options in {flightTo} for a stay from {flightDate} to {flightReturnDate}. List top 3 options.",
+    "Find current affordable hotel options in {flightTo} for a stay from {flightDate} to {flightReturnDate}. Choose the top 3 options.",
     accommodation_schemas
 )
+
+itinerary_schemas = [
+    ResponseSchema(name="date", description="The day of the itinerary"),
+    ResponseSchema(name="activities", description="List of activities with location"),
+    ResponseSchema(name="travel", description="Forms of transportation for each activity"),
+    ResponseSchema(name="dining", description="List of dining options with location, price, and cuisine"),
+    ResponseSchema(name="wellness", description="List of wellness tips/benefits for each activity")
+]
+
+itinerary_prompt, itinerary_parser = create_structured_prompt(
+    """Create an itinerary for activities, dining, and transportation for a {duration} trip to {flightTo} from {flightDate} to {flightReturnDate}.
+    Include wellness tips and benefits for each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
+    The last activity should be departure, so returning to the airport and returning to {flightFrom}. Transportation should be included for each activity.
+    """,
+    itinerary_schemas
+)
+
 
 trip_schemas = [
     ResponseSchema(name="flights", description="List of flight options"),
@@ -64,13 +81,14 @@ trip_schemas = [
 
 final_prompt, final_parser = create_structured_prompt(
     """
-    Based on the provided flight and accommodation information, create a {duration} trip to {flightTo} from {flightDate} to {flightReturnDate} with a total budget of {budget} USD.
-    Include flights, accommodation, and a comprehensive daily itinerary with activities, dining, and transportation.
-    
+    Combine all three previous prompts to create a full trip plan for a {duration} trip to {flightTo} from {flightDate} to {flightReturnDate}.
+    Each section should be its own json object, and the json entities should be the entities in the schema.
     Flight options: {flight_info}
     Accommodation options: {accommodation_info}
+    Itinerary options: {itinerary_info}
     Only give me the json response, not the budget breakdown or any other text that would cause the response to be invalid for
-    json.loads(). In the json response, please do not include any comments.
+    json.loads(). Please include everything in a json format do not add comments at the end of your response. Also do not add any
+    comments to the json in this format :"// comment"
     """,
     trip_schemas
 )
@@ -86,6 +104,7 @@ def run_chain_with_retry(chain, inputs, max_retries=3):
 
 flight_chain = LLMChain(llm=chat, prompt=flight_prompt)
 accommodation_chain = LLMChain(llm=chat, prompt=accommodation_prompt)
+itinerary_chain = LLMChain(llm=chat, prompt=itinerary_prompt)
 final_chain = LLMChain(llm=chat, prompt=final_prompt)
 
 @app.route('/trip-info', methods=['POST'])
@@ -115,10 +134,22 @@ def trip_info():
                 "format_instructions": accommodation_parser.get_format_instructions()
             })
 
+            itinerary_info = run_chain_with_retry(itinerary_chain, {
+                "flightTo": flightTo,
+                "flightFrom": flightFrom,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "duration": duration,
+                "budget": budget,
+                "format_instructions": itinerary_parser.get_format_instructions()
+            })
+
             final_response = run_chain_with_retry(final_chain, {
                 "flight_info": flight_info,
                 "accommodation_info": accommodation_info,
+                "itinerary_info": itinerary_info,
                 "flightTo": flightTo,
+                "flightFrom": flightFrom,
                 "flightDate": flightDate,
                 "flightReturnDate": flightReturnDate,
                 "duration": duration,
