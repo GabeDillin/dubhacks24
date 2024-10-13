@@ -27,13 +27,19 @@ def create_structured_prompt(template, response_schemas):
 flight_schemas = [
     ResponseSchema(name="airline", description="The name of the airline"),
     ResponseSchema(name="price", description="The price of the flight"),
-    ResponseSchema(name="flight_number", description="The flight number"),
-    ResponseSchema(name="departure_time", description="The departure time"),
-    ResponseSchema(name="arrival_time", description="The arrival time")
+    ResponseSchema(name="first_flight_depart", description="The departure time of the first flight"),
+    ResponseSchema(name="first_flight_arrive", description="The arrival time of the first flight"),
+    ResponseSchema(name="second_flight_depart", description="The departure time of the second flight"),
+    ResponseSchema(name="second_flight_arive", description="The arrival time of the second flight"),
+    ResponseSchema(name="emissions_data", description="Emissions data for the round trip")
+    
 ]
 
 flight_prompt, flight_parser = create_structured_prompt(
-    "Find current round-trip flights from {flightFrom} to {flightTo} for a week-long trip from {flightDate} to {flightReturnDate}. List top 3 options.",
+    """Find current round-trip flights from {flightFrom} to {flightTo} for a 1-long trip from {flightDate} to {flightReturnDate}. 
+    List top 3 flights with arrival time and departure time with date and hour, airline for both prices, as well as price for the round trip.
+    Also display emissions information for each flight. The second flight information should be the return flight date and hour, not the first flight's information.
+    """,
     flight_schemas
 )
 
