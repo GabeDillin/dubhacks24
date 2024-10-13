@@ -5,8 +5,8 @@ const Info = () => {
   return (
     <div className="hi">
       {/* The background image is applied through CSS */}
-      <a href="https://www.apple.com" target="_blank" rel="noopener noreferrer"></a>
-      <button className="big-button" src="https://apple.com">Get Started</button>
+      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="goes to next page"></a>
+      <button className="big-button" src="https://apple.com" aria-label="goes to next page">Get Started</button>
     </div>
   );
 };

@@ -45,30 +45,52 @@
     width: 187px;
   }
   
-  .frame .line, .frame .img, .frame .line-2 {
-    background-color: #000;
+  .frame .line {
+    background-image: url('./line-10.svg');
+    background-size: 100% 100%;
     height: 1px;
-    width: 52px;
+    left: 35px;
     position: absolute;
     top: 37px;
+    width: 52px;
+  }
+  
+  .frame .img {
+    background-image: url('./line-11.svg');
+    background-size: 100% 100%;
+    height: 1px;
     left: 35px;
+    position: absolute;
+    top: 52px;
+    width: 52px;
+  }
+  
+  .frame .line-2 {
+    background-image: url('./line-12.svg');
+    background-size: 100% 100%;
+    height: 1px;
+    left: 35px;
+    position: absolute;
+    top: 68px;
+    width: 52px;
   }
   
   .frame .pexels-michael-block {
     background-image: url('./pexels-michael-block-1691617-3225529.png');
     background-size: cover;
+    background-position: center;
     height: 972px;
-    width: 1025px;
+    left: 0;
     position: absolute;
     top: 108px;
-    left: 0;
+    width: 1025px;
   }
   
   .frame .overlap-2 {
     height: 103px;
-    left: 1100px; /* Aligns closer to the start of the green area */
+    left: 1136px;
     position: absolute;
-    top: 150px; /* Adjust top to fit well in the green area */
+    top: 200px;
     width: 464px;
   }
   
@@ -78,6 +100,8 @@
     font-size: 55px;
     font-weight: 500;
     left: 0;
+    letter-spacing: 0;
+    line-height: normal;
     position: absolute;
     top: 0;
     width: 464px;
@@ -88,80 +112,64 @@
     font-family: "Inter-Medium", Helvetica;
     font-size: 20px;
     font-weight: 500;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
     position: absolute;
     top: 80px;
+    white-space: nowrap;
     width: 342px;
   }
   
   .frame .overlap-3 {
     background-color: #23260f;
     border-radius: 30px 0px 0px 30px;
-    height: 600px;
-    left: 1100px; /* Align with the green area */
+    height: 668px;
+    left: 1109px;
     position: absolute;
-    top: 280px; /* Move the form down slightly to fit better */
-    width: 600px; /* Make sure the form is narrower to fit the green area */
-    padding: 20px; /* Add padding for spacing */
+    top: 320px;
+    width: 811px;
+    padding: 50px;
+    box-sizing: border-box;
   }
   
-  .frame .text-wrapper-4 {
+  .frame .form-group {
+    margin-bottom: 30px;
+  }
+  
+  .frame .label {
     color: #f2efdf;
     font-family: "Inter-Medium", Helvetica;
     font-size: 20px;
+    font-weight: 500;
+    display: block;
     margin-bottom: 10px;
   }
   
-  .frame .overlap-4 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .gender-select {
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    width: 300px;
-    padding: 10px;
-  }
-  
-  .input-field {
+  .frame .input-field {
+    width: 100%;
     padding: 10px;
     font-size: 18px;
-    width: 100%;
-    margin-top: 10px;
     border-radius: 5px;
+    border: none;
   }
   
-  .age-input, .name-input, .location-input {
-    background-color: #fff;
-    color: #000;
-    margin-bottom: 20px;
+  .frame .input-field::placeholder {
+    color: #9ba7bf;
   }
   
-  .frame .text-wrapper-10, .frame .text-wrapper-11, .frame .text-wrapper-12, .frame .text-wrapper-17 {
-    color: #f2efdf;
+  .frame .radio-group {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .frame .radio-label {
+    color: #9ba7bf;
     font-family: "Inter-Medium", Helvetica;
     font-size: 20px;
-    margin-top: 20px;
+    font-weight: 500;
   }
   
-  .travel-options {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .travel-option {
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    font-family: "Inter-Medium", Helvetica;
-    color: #1e1e1e;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .travel-option:hover {
-    background-color: #e0e0e0;
+  .frame .radio-label input {
+    margin-right: 5px;
   }
