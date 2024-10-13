@@ -14,3 +14,5 @@ class Config:
     # Other Configurations
     DEBUG = False
     LOG_FILE = 'logs/app.log'
+
+config = Config()

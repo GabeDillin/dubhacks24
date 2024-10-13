@@ -67,3 +67,182 @@ Exception: Failed to search flights: 400 Client Error: Bad Request for url: http
 2024-10-13 01:45:22,513 - travel_app - INFO - Access token acquired successfully.
 2024-10-13 01:45:23,980 - travel_app - INFO - Access token acquired successfully.
 2024-10-13 01:45:27,416 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 03:52:19,653 - travel_app - INFO - Fetching new access token...
+2024-10-13 03:52:20,614 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 03:52:26,482 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 03:53:02,640 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 85, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 03:56:23,259 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 03:56:58,888 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 85, in trip_info
+    })
+       
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 03:58:35,617 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 03:59:13,749 - travel_app - INFO - Fetching new access token...
+2024-10-13 03:59:14,599 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 03:59:19,714 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 03:59:55,619 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 89, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 04:01:53,803 - travel_app - INFO - Fetching new access token...
+2024-10-13 04:01:54,643 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 04:02:00,418 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 04:02:32,797 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 89, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 04:48:25,616 - travel_app - INFO - Fetching new access token...
+2024-10-13 04:48:26,578 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 04:48:32,378 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 04:49:14,195 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 89, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 04:51:05,599 - travel_app - INFO - Fetching new access token...
+2024-10-13 04:51:06,588 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 04:51:12,578 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 04:51:53,572 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 89, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 04:56:12,145 - travel_app - INFO - Fetching new access token...
+2024-10-13 04:56:13,227 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 04:56:14,641 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 31, in trip_info
+    cityTo = get_city_name_from_airport_code(flightTo)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/services/amadeus_service.py", line 85, in get_city_name_from_airport_code
+    raise Exception(f"Failed to fetch city name for airport code: {airport_code}, Status code: {response.status_code}")
+Exception: Failed to fetch city name for airport code: LAX, Status code: 429
+2024-10-13 04:56:27,663 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 04:57:06,620 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 89, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 04:58:15,374 - travel_app - INFO - Fetching new access token...
+2024-10-13 04:58:16,043 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 04:58:22,429 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 04:59:06,346 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 88, in trip_info
+    parsed_response = final_parser.parse(final_response)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain/output_parsers/structured.py", line 97, in parse
+    return parse_and_check_json_markdown(text, expected_keys)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 180, in parse_and_check_json_markdown
+    json_obj = parse_json_markdown(text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 136, in parse_json_markdown
+    return _parse_json(json_string, parser=parser)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/langchain_core/utils/json.py", line 154, in _parse_json
+    json_str = json_str.strip(_json_strip_chars)
+               ^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+2024-10-13 05:02:20,767 - travel_app - INFO - Fetching new access token...
+2024-10-13 05:02:21,609 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 05:02:26,969 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 05:06:20,744 - travel_app - INFO - Flight offers retrieved successfully.

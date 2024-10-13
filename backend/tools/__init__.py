@@ -1,6 +1,9 @@
-from .flight_search import search_flights, get_city_name_from_airport_code
+# tools/__init__.py
+
+from .flight_search_tool import flight_search_tool
+from .accommodation_search_tool import accommodation_search_tool
 
 __all__ = [
-    'search_flights',
-    'get_city_name_from_airport_code'
+    'flight_search_tool',
+    'accommodation_search_tool',
 ]

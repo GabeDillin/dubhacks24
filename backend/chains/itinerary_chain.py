@@ -1,21 +1,81 @@
-from langchain.chains import LLMChain
-from langchain.output_parsers import ResponseSchema
-from agents import chat, create_structured_prompt
+# chains/itinerary_chain.py
 
+from langchain.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnableSequence, RunnableLambda
+from langchain.output_parsers import StructuredOutputParser, ResponseSchema
+from agents import run_agent
+from utils.logger import logger
+from utils.llm import llm  # Centralized LLM instance
+import json
+
+# Define your response schemas
 itinerary_schemas = [
     ResponseSchema(name="date", description="The day of the itinerary"),
-    ResponseSchema(name="activities", description="List of activities with location")
+    ResponseSchema(name="activities", description="List of activities with location"),
 ]
 
-itinerary_template = """
-Create an itinerary for {numAdults} for activities, dining, and transportation for a trip to {flightTo} from {flightDate} to {flightReturnDate}.
-The activities on the first and last day when the guests are travelling should be less intense. The activities in the middle of the trip can be more intense.
-If the activities are intense, only include one activity per day. If they are less intense activities on days other than the first and last, include two activities per day.
-Include wellness tips and benefits for each activity, and should be an attribute under each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
-The last activity should be departure, so returning to the airport and returning to {flightFrom}. Transportation should be included for each activity.
-The json attributes under each date should be activities, and attributes in activities should be activity name, location, travel, dining, and wellness.
-Only give one option for dining per activity.
+# Create a structured output parser
+itinerary_parser = StructuredOutputParser.from_response_schemas(itinerary_schemas)
+format_instructions = itinerary_parser.get_format_instructions()
+
+# Define the prompt template
+itinerary_template = f"""
+Create an itinerary in the following JSON schema:
+
+{format_instructions}
+
+Itinerary Data:
+{{
+    "itineraryInfo": itineraryInfo
+}}
 """
 
-itinerary_prompt, itinerary_parser = create_structured_prompt(itinerary_template, itinerary_schemas)
-itinerary_chain = LLMChain(llm=chat, prompt=itinerary_prompt)
+# Create the prompt
+itinerary_prompt = ChatPromptTemplate.from_template(itinerary_template)
+
+# Define a RunnableLambda for formatting the prompt
+def format_itinerary_prompt(itinerary_info):
+    return itinerary_prompt.format(itineraryInfo=itinerary_info)
+
+runnable_format = RunnableLambda(format_itinerary_prompt)
+
+# Define a RunnableLambda for invoking the agent
+def invoke_agent(prompt):
+    return run_agent(prompt)
+
+runnable_invoke = RunnableLambda(invoke_agent)
+
+# Define a RunnableLambda for parsing the response
+def parse_itinerary_response(response):
+    return itinerary_parser.parse(response)
+
+runnable_parse = RunnableLambda(parse_itinerary_response)
+
+# Compose the RunnableSequence: format_prompt -> agent.run -> parse_response
+itinerary_sequence = RunnableSequence(
+    [
+        runnable_format,
+        runnable_invoke,
+        runnable_parse
+    ]
+)
+
+def process_itinerary_info(itinerary_info):
+    """
+    Processes itinerary information and extracts structured itinerary data.
+
+    Args:
+        itinerary_info (dict): The raw itinerary information.
+
+    Returns:
+        dict: Structured itinerary information.
+    """
+    try:
+        # Convert itinerary_info to JSON string
+        itinerary_info_str = json.dumps(itinerary_info, indent=2)
+        # Run the sequence with the itinerary information
+        parsed = itinerary_sequence.invoke(itinerary_info_str)
+        return parsed
+    except Exception as e:
+        logger.error(f"Error processing itinerary info: {e}")
+        return {"error": str(e)}

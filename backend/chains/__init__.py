@@ -1,15 +1,21 @@
-from .flight_chain import flight_chain, flight_parser
-from .accommodation_chain import accommodation_chain, accommodation_parser
-from .itinerary_chain import itinerary_chain, itinerary_parser
-from .final_chain import final_chain, final_parser
+# chains/__init__.py
+
+from .flight_chain import flight_sequence, flight_parser, process_flight_info
+from .accommodation_chain import accommodation_sequence, accommodation_parser, process_accommodation_info
+from .itinerary_chain import itinerary_sequence, itinerary_parser, process_itinerary_info
+from .final_chain import final_sequence, final_parser, process_final_response
 
 __all__ = [
-    'flight_chain',
+    'flight_sequence',
     'flight_parser',
-    'accommodation_chain',
+    'process_flight_info',
+    'accommodation_sequence',
     'accommodation_parser',
-    'itinerary_chain',
+    'process_accommodation_info',
+    'itinerary_sequence',
     'itinerary_parser',
-    'final_chain',
-    'final_parser'
+    'process_itinerary_info',
+    'final_sequence',
+    'final_parser',
+    'process_final_response',
 ]

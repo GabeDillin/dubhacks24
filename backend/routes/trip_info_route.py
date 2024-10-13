@@ -2,20 +2,22 @@
 
 from flask import Blueprint, jsonify
 from utils import parse_request_data, logger
-from agents import run_chain_with_retry
 from chains import (
-    flight_chain, flight_parser,
-    accommodation_chain, accommodation_parser,
-    itinerary_chain, itinerary_parser,
-    final_chain, final_parser
+    flight_sequence, flight_parser, process_flight_info,
+    accommodation_sequence, accommodation_parser, process_accommodation_info,
+    itinerary_sequence, itinerary_parser, process_itinerary_info,
+    final_sequence, final_parser, process_final_response
 )
-from tools.flight_search import search_flights, get_city_name_from_airport_code
+from agents import run_agent
+import json
+from datetime import datetime
 
 trip_info_route = Blueprint('trip_info_route', __name__)
 
 @trip_info_route.route('/trip-info', methods=['POST'])
 def trip_info():
     try:
+        # Parse the incoming request data
         data = parse_request_data()
         flightFrom = data['flightFrom']
         flightTo = data['flightTo']
@@ -23,11 +25,13 @@ def trip_info():
         flightReturnDate = data['flightReturnDate']
         budget = data['budget']
         numAdults = data['numAdults']
-        duration = data['duration']
+        
+        # Calculate duration based on flight dates
+        flight_date_obj = datetime.strptime(flightDate, "%Y-%m-%d")
+        return_date_obj = datetime.strptime(flightReturnDate, "%Y-%m-%d")
+        duration = (return_date_obj - flight_date_obj).days
 
-        cityFrom = get_city_name_from_airport_code(flightFrom)
-        cityTo = get_city_name_from_airport_code(flightTo)
-
+        # Prepare parameters for flight search
         flight_search_params = {
             "origin_location_code": flightFrom,
             "destination_location_code": flightTo,
@@ -36,54 +40,76 @@ def trip_info():
             "adults": numAdults,
             "max_offers": 5
         }
-        flight_offers = search_flights(**flight_search_params)
+
+        # Run the flight search tool via agent
+        flight_offers = run_agent(flight_search_params)
         logger.info("Flight offers retrieved successfully.")
 
-        flight_info = run_chain_with_retry(flight_chain, {
-            "flightFrom": flightFrom,
-            "flightTo": flightTo,
-            "flightDate": flightDate,
-            "flightReturnDate": flightReturnDate,
-            "flightOffers": flight_offers,
-            "duration": duration,
-            "numAdults": numAdults,
-            "format_instructions": flight_parser.get_format_instructions()
-        })
+        # Process flight offers to extract structured flight information
+        flight_info = process_flight_info(
+            flight_offers=flight_offers,
+            flightFrom=flightFrom,
+            flightTo=flightTo,
+            flightDate=flightDate,
+            flightReturnDate=flightReturnDate
+        )
+        logger.info("Flight information processed successfully.")
 
-        accommodation_info = run_chain_with_retry(accommodation_chain, {
-            "flightTo": flightTo,
-            "flightDate": flightDate,
-            "flightReturnDate": flightReturnDate,
-            "numAdults": numAdults,
-            "format_instructions": accommodation_parser.get_format_instructions()
-        })
+        # Prepare parameters for accommodation search
+        accommodation_search_params = {
+            "location": flightTo,
+            "check_in_date": flightDate,
+            "check_out_date": flightReturnDate,
+            "adults": numAdults,
+            "max_results": 5
+        }
 
-        itinerary_info = run_chain_with_retry(itinerary_chain, {
-            "flightTo": flightTo,
-            "flightFrom": flightFrom,
-            "flightDate": flightDate,
-            "flightReturnDate": flightReturnDate,
-            "duration": duration,
-            "budget": budget,
-            "numAdults": numAdults,
-            "format_instructions": itinerary_parser.get_format_instructions()
-        })
+        # Run the accommodation search tool via agent
+        accommodation_data = run_agent(accommodation_search_params)
+        logger.info("Accommodation data retrieved successfully.")
 
-        final_response = run_chain_with_retry(final_chain, {
-            "flight_info": flight_info,
-            "accommodation_info": accommodation_info,
-            "itinerary_info": itinerary_info,
-            "flightTo": flightTo,
-            "flightFrom": flightFrom,
-            "flightDate": flightDate,
-            "flightReturnDate": flightReturnDate,
-            "duration": duration,
-            "budget": budget,
-            "format_instructions": final_parser.get_format_instructions()
-        })
+        # Process accommodation data to extract structured accommodation information
+        accommodation_info = process_accommodation_info(
+            accommodation_data=accommodation_data,
+            location=flightTo,
+            check_in_date=flightDate,
+            check_out_date=flightReturnDate,
+            numAdults=numAdults
+        )
+        logger.info("Accommodation information processed successfully.")
 
-        parsed_response = final_parser.parse(final_response)
-        return jsonify(parsed_response), 200
+        # Prepare itinerary information
+        itinerary_info = {
+            "date": flightDate,
+            "activities": [
+                {"activity": "Departure from SEA", "location": flightFrom},
+                {"activity": "Arrival at LAX", "location": flightTo},
+                {"activity": "Check into hotel", "location": accommodation_info.get("name")},
+                {"activity": "Attend meetings/conferences", "location": flightTo},
+                {"activity": "Dinner at a local restaurant", "location": flightTo},
+                {"activity": "Departure from LAX", "location": flightTo},
+                {"activity": "Arrival at SEA", "location": flightFrom}
+            ]
+        }
+
+        # Convert itinerary_info to JSON string for processing
+        itinerary_info_str = json.dumps(itinerary_info, indent=2)
+
+        # Process itinerary information to extract structured itinerary data
+        structured_itinerary_info = process_itinerary_info(itinerary_info_str)
+        logger.info("Itinerary information processed successfully.")
+
+        # Combine all information into the final response
+        final_response = process_final_response(
+            flight_info=flight_info,
+            accommodation_info=accommodation_info,
+            itinerary_info=structured_itinerary_info
+        )
+        logger.info("Final response generated successfully.")
+
+        # Since final_response is a dict, return it directly
+        return jsonify(final_response), 200
+
     except Exception as e:
         logger.exception("An error occurred in trip_info endpoint.")
         return jsonify({"error": str(e)}), 500

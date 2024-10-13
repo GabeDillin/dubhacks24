@@ -1,15 +1,19 @@
 # app.py
-from flask import Flask
-from flask_cors import CORS
 
+from flask import Flask
 from routes import trip_info_route
 from utils.logger import logger
 
-app = Flask(__name__)
-CORS(app)
+def create_app():
+    app = Flask(__name__)
 
-# Register Blueprints
-app.register_blueprint(trip_info_route)
+    # Register blueprints
+    app.register_blueprint(trip_info_route)
 
-if __name__ == '__main__':
-    app.run(debug=False)
+    @app.route('/')
+    def index():
+        return "Travel App is running."
+
+    return app
+
+app = create_app()
