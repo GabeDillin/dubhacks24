@@ -1,12 +1,47 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 export const User = () => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [companions, setCompanions] = useState("");
-  const [location, setLocation] = useState("");
+  const [formData, setFormData] = useState({
+    flightFrom: "",
+    flightTo: "",
+    flightDate: "",
+    flightReturnDate: "",
+    budget: "",
+    numAdults: ""
+  });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch("http://127.0.0.1:5000/trip-info", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json();
+      console.log("Data:", data);
+      setLoading(false);
+      navigate("/results", { state: { data } });
+    } catch (error) {
+      console.error("Error:", error);
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="frame">
@@ -21,113 +56,92 @@ export const User = () => {
           <div className="pexels-michael-block" aria-label="Background image"></div>
           <div className="overlap-2">
             <div className="text-wrapper-2">Let’s begin.</div>
-            <div className="text-wrapper-3">Tell me about yourself...</div>
+            <div className="text-wrapper-3">Tell me about your trip...</div>
           </div>
           <div className="overlap-3">
-            <div className="form-group">
-              <label className="label">Name:</label>
-              <input
-                className="input-field"
-                type="text"
-                placeholder="ex: Jane Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label className="label">Airport Leaving From:</label>
+                  <input
+                    className="input-field"
+                    type="text"
+                    name="flightFrom"
+                    placeholder="ex: LAX"
+                    value={formData.flightFrom}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-            <div className="form-group">
-              <label className="label">Age:</label>
-              <input
-                className="input-field"
-                type="number"
-                placeholder="Enter your age"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </div>
+                <div className="form-group">
+                  <label className="label">Airport Arriving At:</label>
+                  <input
+                    className="input-field"
+                    type="text"
+                    name="flightTo"
+                    placeholder="ex: JFK"
+                    value={formData.flightTo}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-            <div className="form-group">
-              <label className="label">Gender:</label>
-              <div className="radio-group">
-                <label className="radio-label">
+                <div className="form-group">
+                  <label className="label">Flight Departure Date:</label>
                   <input
-                    type="radio"
-                    name="gender"
-                    value="Man"
-                    checked={gender === "Man"}
-                    onChange={(e) => setGender(e.target.value)}
+                    className="input-field"
+                    type="date"
+                    name="flightDate"
+                    value={formData.flightDate}
+                    onChange={handleChange}
+                    required
                   />
-                  Man
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="Woman"
-                    checked={gender === "Woman"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  Woman
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="Other"
-                    checked={gender === "Other"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  Other
-                </label>
-              </div>
-            </div>
+                </div>
 
-            <div className="form-group">
-              <label className="label">Who’s traveling with you?</label>
-              <div className="radio-group">
-                <label className="radio-label">
+                <div className="form-group">
+                  <label className="label">Flight Return Date:</label>
                   <input
-                    type="radio"
-                    name="companions"
-                    value="Solo"
-                    checked={companions === "Solo"}
-                    onChange={(e) => setCompanions(e.target.value)}
+                    className="input-field"
+                    type="date"
+                    name="flightReturnDate"
+                    value={formData.flightReturnDate}
+                    onChange={handleChange}
+                    required
                   />
-                  Solo
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="companions"
-                    value="Friends"
-                    checked={companions === "Friends"}
-                    onChange={(e) => setCompanions(e.target.value)}
-                  />
-                  Friends
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="companions"
-                    value="Family"
-                    checked={companions === "Family"}
-                    onChange={(e) => setCompanions(e.target.value)}
-                  />
-                  Family
-                </label>
-              </div>
-            </div>
+                </div>
 
-            <div className="form-group">
-              <label className="label">Location:</label>
-              <input
-                className="input-field"
-                type="text"
-                placeholder="Where do you want to travel from?"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
+                <div className="form-group">
+                  <label className="label">Budget:</label>
+                  <input
+                    className="input-field"
+                    type="number"
+                    name="budget"
+                    placeholder="Enter your budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="label">Number of Adults:</label>
+                  <input
+                    className="input-field"
+                    type="number"
+                    name="numAdults"
+                    placeholder="Enter number of adults"
+                    value={formData.numAdults}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <button type="submit" className="big-button" aria-label="submit form">Get Started</button>
+              </form>
+            )}
           </div>
         </div>
       </div>

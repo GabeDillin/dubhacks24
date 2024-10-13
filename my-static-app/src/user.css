@@ -1,175 +1,189 @@
 .frame {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .frame .div {
-    background-color: #ffffff;
-    height: 1080px;
-    overflow: hidden;
-    position: relative;
-    width: 1920px;
-  }
-  
-  .frame .overlap-group {
-    background-color: #f2efdf;
-    height: 1080px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1920px;
-  }
-  
-  .frame .overlap {
-    background-color: #23260f;
-    height: 108px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1920px;
-  }
-  
-  .frame .text-wrapper {
-    color: #f2efdf;
-    font-family: "Inter-SemiBold", Helvetica;
-    font-size: 35px;
-    font-weight: 600;
-    left: 127px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 29px;
-    width: 187px;
-  }
-  
-  .frame .line {
-    background-image: url('./line-10.svg');
-    background-size: 100% 100%;
-    height: 1px;
-    left: 35px;
-    position: absolute;
-    top: 37px;
-    width: 52px;
-  }
-  
-  .frame .img {
-    background-image: url('./line-11.svg');
-    background-size: 100% 100%;
-    height: 1px;
-    left: 35px;
-    position: absolute;
-    top: 52px;
-    width: 52px;
-  }
-  
-  .frame .line-2 {
-    background-image: url('./line-12.svg');
-    background-size: 100% 100%;
-    height: 1px;
-    left: 35px;
-    position: absolute;
-    top: 68px;
-    width: 52px;
-  }
-  
-  .frame .pexels-michael-block {
-    background-image: url('./pexels-michael-block-1691617-3225529.png');
-    background-size: cover;
-    background-position: center;
-    height: 972px;
-    left: 0;
-    position: absolute;
-    top: 108px;
-    width: 1025px;
-  }
-  
-  .frame .overlap-2 {
-    height: 103px;
-    left: 1136px;
-    position: absolute;
-    top: 200px;
-    width: 464px;
-  }
-  
-  .frame .text-wrapper-2 {
-    color: #1e1e1e;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 55px;
-    font-weight: 500;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 0;
-    width: 464px;
-  }
-  
-  .frame .text-wrapper-3 {
-    color: #1e1e1e;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 80px;
-    white-space: nowrap;
-    width: 342px;
-  }
-  
-  .frame .overlap-3 {
-    background-color: #23260f;
-    border-radius: 30px 0px 0px 30px;
-    height: 668px;
-    left: 1109px;
-    position: absolute;
-    top: 320px;
-    width: 811px;
-    padding: 50px;
-    box-sizing: border-box;
-  }
-  
-  .frame .form-group {
-    margin-bottom: 30px;
-  }
-  
-  .frame .label {
-    color: #f2efdf;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .frame .input-field {
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
-    border: none;
-  }
-  
-  .frame .input-field::placeholder {
-    color: #9ba7bf;
-  }
-  
-  .frame .radio-group {
-    display: flex;
-    gap: 30px;
-  }
-  
-  .frame .radio-label {
-    color: #9ba7bf;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-  }
-  
-  .frame .radio-label input {
-    margin-right: 5px;
-  }
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.frame .div {
+  background-color: #ffffff;
+  height: 1080px;
+  overflow: hidden;
+  position: relative;
+  width: 1920px;
+}
+
+.frame .overlap-group {
+  background-color: #f2efdf;
+  height: 1080px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1920px;
+}
+
+.frame .overlap {
+  background-color: #23260f;
+  height: 108px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1920px;
+}
+
+.frame .text-wrapper {
+  color: #f2efdf;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-size: 35px;
+  font-weight: 600;
+  left: 127px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 29px;
+  width: 187px;
+}
+
+.frame .line {
+  background-image: url('./line-10.svg');
+  background-size: 100% 100%;
+  height: 1px;
+  left: 35px;
+  position: absolute;
+  top: 37px;
+  width: 52px;
+}
+
+.frame .img {
+  background-image: url('./line-11.svg');
+  background-size: 100% 100%;
+  height: 1px;
+  left: 35px;
+  position: absolute;
+  top: 52px;
+  width: 52px;
+}
+
+.frame .line-2 {
+  background-image: url('./line-12.svg');
+  background-size: 100% 100%;
+  height: 1px;
+  left: 35px;
+  position: absolute;
+  top: 68px;
+  width: 52px;
+}
+
+.frame .pexels-michael-block {
+  background-image: url('./pexels-michael-block-1691617-3225529.png');
+  background-size: cover;
+  background-position: center;
+  height: 972px;
+  left: 0;
+  position: absolute;
+  top: 108px;
+  width: 1025px;
+}
+
+.frame .overlap-2 {
+  height: 103px;
+  left: 1136px;
+  position: absolute;
+  top: 200px;
+  width: 464px;
+}
+
+.frame .text-wrapper-2 {
+  color: #1e1e1e;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 55px;
+  font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 464px;
+}
+
+.frame .text-wrapper-3 {
+  color: #1e1e1e;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 80px;
+  white-space: nowrap;
+  width: 342px;
+}
+
+.frame .overlap-3 {
+  background-color: #23260f;
+  border-radius: 30px 0px 0px 30px;
+  height: 668px;
+  left: 1109px;
+  position: absolute;
+  top: 320px;
+  width: 811px;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+.frame .form-group {
+  margin-bottom: 30px;
+}
+
+.frame .label {
+  color: #f2efdf;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.frame .input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+}
+
+.frame .input-field::placeholder {
+  color: #9ba7bf;
+}
+
+.frame .radio-group {
+  display: flex;
+  gap: 30px;
+}
+
+.frame .radio-label {
+  color: #9ba7bf;
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.frame .radio-label input {
+  margin-right: 5px;
+}
+
+.frame .big-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.frame .big-button:hover {
+  background-color: #0056b3;
+}
