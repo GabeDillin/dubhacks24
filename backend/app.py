@@ -5,16 +5,12 @@ from langchain_community.chat_models import ChatPerplexity
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 from langchain.output_parsers import StructuredOutputParser, ResponseSchema
-from langchain.agents import initialize_agent, AgentType, Tool
 from langchain.schema import HumanMessage
 from dotenv import load_dotenv
-from hotel_search_tool import HotelSearchTool
 
 load_dotenv()
 
 app = Flask(__name__)
-
-hotelSearchTool = HotelSearchTool()
 
 chat = ChatPerplexity(
     temperature=0.7,
@@ -73,7 +69,6 @@ final_prompt, final_parser = create_structured_prompt(
     trip_schemas
 )
 
-
 def run_chain_with_retry(chain, inputs, max_retries=3):
     for attempt in range(max_retries):
         try:
@@ -84,16 +79,8 @@ def run_chain_with_retry(chain, inputs, max_retries=3):
             print(f"Attempt {attempt + 1} failed. Retrying...")
 
 flight_chain = LLMChain(llm=chat, prompt=flight_prompt)
+accommodation_chain = LLMChain(llm=chat, prompt=accommodation_prompt)
 final_chain = LLMChain(llm=chat, prompt=final_prompt)
-
-tools = [hotelSearchTool, Tool(name="FlightChain", func=flight_chain.run, description="Get flight information"),
-         Tool(name="FinalChain", func=final_chain.run, description="Summarizes results, gets itinerary information, formats results.")]
-
-agent = initialize_agent (
-    tools,
-    chat,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION
-)
 
 @app.route('/trip-info', methods=['POST'])
 def trip_info():
@@ -107,30 +94,31 @@ def trip_info():
             duration = data.get('duration')
             budget = data.get('budget')
 
-            # flight_info = run_chain_with_retry(flight_chain, {
-            #     "flightFrom": flightFrom,
-            #     "flightTo": flightTo,
-            #     "flightDate": flightDate,
-            #     "flightReturnDate": flightReturnDate,
-            #     "format_instructions": flight_parser.get_format_instructions()
-            # })
+            flight_info = run_chain_with_retry(flight_chain, {
+                "flightFrom": flightFrom,
+                "flightTo": flightTo,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "format_instructions": flight_parser.get_format_instructions()
+            })
             
-            # # Use the HotelSearchTool directly
-            # accommodation_query = f"hotel ids: {flightTo} check in: {flightDate} check out: {flightReturnDate} adults: 2"
-            # accommodation_info = hotelSearchTool._run(accommodation_query)
+            accommodation_info = run_chain_with_retry(accommodation_chain, {
+                "flightTo": flightTo,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "format_instructions": accommodation_parser.get_format_instructions()
+            })
 
-            # final_response = run_chain_with_retry(final_chain, {
-            #     "flight_info": flight_info,
-            #     "accommodation_info": accommodation_info,
-            #     "flightTo": flightTo,
-            #     "flightDate": flightDate,
-            #     "flightReturnDate": flightReturnDate,
-            #     "duration": duration,
-            #     "budget": budget,
-            #     "format_instructions": final_parser.get_format_instructions()
-            # })
-
-            final_response = agent.run("Create an json output for an itinerary for a trip to {flightTo} from {flightDate} to {flightReturnDate} with a budget of {budget} USD based on the final_chain.  Only give me the json response, not the budget breakdown or any other text that would cause the response to be invalid for json.loads(). In the json response, please do not include any comments. Do not tell me how to put it in JSON, please put it in JSON.")
+            final_response = run_chain_with_retry(final_chain, {
+                "flight_info": flight_info,
+                "accommodation_info": accommodation_info,
+                "flightTo": flightTo,
+                "flightDate": flightDate,
+                "flightReturnDate": flightReturnDate,
+                "duration": duration,
+                "budget": budget,
+                "format_instructions": final_parser.get_format_instructions()
+            })
 
             # Log the raw response for debugging
             print("Raw response:", final_response)
@@ -145,8 +133,6 @@ def trip_info():
             return jsonify({"error": "Request content type must be application/json"}), 415
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-
 
 if __name__ == '__main__':
     app.run(debug=True)
