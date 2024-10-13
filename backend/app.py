@@ -2,7 +2,6 @@ import os
 import json
 from datetime import datetime
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 from langchain_community.chat_models import ChatPerplexity
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
@@ -13,7 +12,6 @@ from flightSearch import search_flights, get_city_name_from_airport_code
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
 
 chat = ChatPerplexity(
     temperature=0.4,
@@ -143,7 +141,7 @@ def trip_info():
                     "departure_date": flightDate,
                     "return_date": flightReturnDate,
                     "adults": numAdults,
-                    "max_offers": 5
+                    "max_offers": 20
                 }
 
                 flight_offers = search_flights(**flight_search_params)
