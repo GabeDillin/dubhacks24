@@ -10,6 +10,8 @@ Implemented perplexity LLM along with Amadeus flights API secured using OAuth an
 ## Challenges we ran into
 Additionally, integrating multiple APIs to pull travel data, wellness services, and local information in real-time required fine-tuning to ensure accuracy and user satisfaction. Another challenge was designing an interface that was both intuitive and flexible, so users with various levels of tech-savviness could easily navigate the app.
 
+The hardest challenge was getting the Perplexity API to output a valid JSON object that we could parse for the frontend. We ran into issues with the variability of outputs, and we had to experiment with prompts and temperature of the model.
+
 ## Accomplishments that we're proud of
 Getting a MVP by the end time. Working together with four team members that we've never worked with before.
 
