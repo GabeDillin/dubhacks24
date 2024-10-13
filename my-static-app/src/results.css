@@ -49,3 +49,51 @@
 h2 {
   color: white;
 }
+
+/* results.css */
+
+.results-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.back-button {
+  margin-bottom: 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 70vh; /* Adjust the height as needed */
+  overflow-y: auto;
+  padding-right: 10px; /* Add some padding to avoid scrollbar overlap */
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card p {
+  margin: 5px 0;
+}
+
+.card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.card ul li {
+  margin: 5px 0;
+}

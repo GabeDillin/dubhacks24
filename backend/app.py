@@ -72,6 +72,7 @@ itinerary_prompt, itinerary_parser = create_structured_prompt(
     """Create an itinerary for {numAdults} for activities, dining, and transportation for a trip to {flightTo} from {flightDate} to {flightReturnDate}.
     The itinerary should be an array, and each date should be a sub-array with everything else in it. Each date should not be its own array, but should be a json object within the itinerary array.
     The activities on the first and last day when the guests are travelling should be less intense. The activities in the middle of the trip can be more intense.
+    The itinerary should only include activities and dining that are in the city of {flightTo}.
     If the activities are intense, only include one activity per day. If they are less intense activities on days other than the first and last, include two activities per day.
     Include wellness tips and benefits for each activity, and should be an attribute under each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
     The last activity should be departure, so returning to the airport and returning to {flightFrom}. Transportation should be included for each activity.
