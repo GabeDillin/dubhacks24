@@ -1,11 +1,13 @@
 import os
 import json
+from datetime import datetime
 from flask import Flask, request, jsonify
 from langchain_community.chat_models import ChatPerplexity
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import LLMChain
 from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 from dotenv import load_dotenv
+from flightSearch import search_flights, get_city_name_from_airport_code
 
 load_dotenv()
 
@@ -30,13 +32,17 @@ flight_schemas = [
     ResponseSchema(name="first_flight_arrive", description="The arrival time of the first flight"),
     ResponseSchema(name="second_flight_depart", description="The departure time of the second flight"),
     ResponseSchema(name="second_flight_arive", description="The arrival time of the second flight"),
-    ResponseSchema(name="emissions_data", description="Emissions data for the round trip")
-    
+    ResponseSchema(name="first_flight_number", description="The flight number of the first flight"),
+    ResponseSchema(name="second_flight_number", description="The flight number of the second flight"),
+    ResponseSchema(name="emissions_data", description="Emissions data for the round trip"),
 ]
 
 flight_prompt, flight_parser = create_structured_prompt(
-    """Find current round-trip flights from {flightFrom} to {flightTo} for a 1-long trip from {flightDate} to {flightReturnDate}. 
-    List top 3 flights with arrival time and departure time with date and hour, airline for both prices, as well as price for the round trip.
+    """From {flightOffers}, find round-trip flights from {flightFrom} to {flightTo} for a {duration} day trip from {flightDate} to {flightReturnDate}.
+    The flight should be for {numAdults} adults. {flightOffers} is a json file that contains individual round-trip flights. Make sure all information matches with the specific round-trip.
+    Prefer to look for three flights from different carriers/airlines if all three have full information ex: no "Unknown" or "missing". If not, find three round-trips that have full information.
+    Do not include any round-trip twice.
+    List flights with arrival time and departure time with date and hour, airline for both prices, as well as price for the round trip.
     Also display emissions information for each flight. The second flight information should be the return flight date and hour, not the first flight's information.
     """,
     flight_schemas
@@ -51,26 +57,26 @@ accommodation_schemas = [
 ]
 
 accommodation_prompt, accommodation_parser = create_structured_prompt(
-    "Find current affordable hotel options in {flightTo} for a stay from {flightDate} to {flightReturnDate}. Choose the top 3 options.",
+    "Find current affordable hotel options for {numAdults} in {flightTo} for a stay from {flightDate} to {flightReturnDate}. Choose the top 3 options.",
     accommodation_schemas
 )
 
 itinerary_schemas = [
     ResponseSchema(name="date", description="The day of the itinerary"),
     ResponseSchema(name="activities", description="List of activities with location"),
-    ResponseSchema(name="travel", description="Forms of transportation for each activity"),
-    ResponseSchema(name="dining", description="List of dining options with location, price, and cuisine"),
-    ResponseSchema(name="wellness", description="List of wellness tips/benefits for each activity")
 ]
 
 itinerary_prompt, itinerary_parser = create_structured_prompt(
-    """Create an itinerary for activities, dining, and transportation for a {duration} trip to {flightTo} from {flightDate} to {flightReturnDate}.
-    Include wellness tips and benefits for each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
+    """Create an itinerary for {numAdults} for activities, dining, and transportation for a trip to {flightTo} from {flightDate} to {flightReturnDate}.
+    The activities on the first and last day when the guests are travelling should be less intense. The activities in the middle of the trip can be more intense.
+    If the activities are intense, only include one activity per day. If they are less intense activities on days other than the first and last, include two activities per day.
+    Include wellness tips and benefits for each activity, and should be an attribute under each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
     The last activity should be departure, so returning to the airport and returning to {flightFrom}. Transportation should be included for each activity.
+    The json attributes under each date should be activities, and attributes in activites should be activity name, location, travel, dining, and wellness.
+    Only give one option for dining per activity.
     """,
     itinerary_schemas
 )
-
 
 trip_schemas = [
     ResponseSchema(name="flights", description="List of flight options"),
@@ -80,7 +86,7 @@ trip_schemas = [
 
 final_prompt, final_parser = create_structured_prompt(
     """
-    Combine all three previous prompts to create a full trip plan for a {duration} trip to {flightTo} from {flightDate} to {flightReturnDate}.
+    Combine all three previous prompts to create a full trip plan for a {duration} day trip to {flightTo} from {flightDate} to {flightReturnDate}.
     Each section should be its own json object, and the json entities should be the entities in the schema.
     Flight options: {flight_info}
     Accommodation options: {accommodation_info}
@@ -115,31 +121,62 @@ def trip_info():
             flightTo = data.get('flightTo')
             flightDate = data.get('flightDate')
             flightReturnDate = data.get('flightReturnDate')
-            duration = data.get('duration')
             budget = data.get('budget')
+            numAdults = data.get('numAdults')
+
+            flight_date_obj = datetime.strptime(flightDate, '%Y-%m-%d')
+            flight_return_date_obj = datetime.strptime(flightReturnDate, '%Y-%m-%d')
+
+            duration = (flight_return_date_obj - flight_date_obj).days
+
+            cityFrom = get_city_name_from_airport_code(flightFrom)
+            cityTo = get_city_name_from_airport_code(flightTo)
+
+            flight_offers = []  # Initialize flight_offers to an empty list
+
+            try:
+                flight_search_params = {
+                    "origin_location_code": flightFrom,
+                    "destination_location_code": flightTo,
+                    "departure_date": flightDate,
+                    "return_date": flightReturnDate,
+                    "adults": numAdults,
+                    "max_offers": 20
+                }
+
+                flight_offers = search_flights(**flight_search_params)
+                print("Raw Flight Offers JSON:")
+                print(json.dumps(flight_offers, indent=2))
+            except Exception as e:
+                print(f"An error occurred during flight search: {e}")
 
             flight_info = run_chain_with_retry(flight_chain, {
                 "flightFrom": flightFrom,
                 "flightTo": flightTo,
                 "flightDate": flightDate,
                 "flightReturnDate": flightReturnDate,
+                "flightOffers": flight_offers,
+                "duration": duration,
+                "numAdults": numAdults,
                 "format_instructions": flight_parser.get_format_instructions()
             })
             
             accommodation_info = run_chain_with_retry(accommodation_chain, {
-                "flightTo": flightTo,
+                "flightTo": cityTo,
                 "flightDate": flightDate,
                 "flightReturnDate": flightReturnDate,
+                "numAdults": numAdults,
                 "format_instructions": accommodation_parser.get_format_instructions()
             })
 
             itinerary_info = run_chain_with_retry(itinerary_chain, {
                 "flightTo": flightTo,
-                "flightFrom": flightFrom,
-                "flightDate": flightDate,
+                "flightFrom": cityFrom,
+                "flightDate": cityTo,
                 "flightReturnDate": flightReturnDate,
                 "duration": duration,
                 "budget": budget,
+                "numAdults": numAdults,
                 "format_instructions": itinerary_parser.get_format_instructions()
             })
 
@@ -156,10 +193,6 @@ def trip_info():
                 "format_instructions": final_parser.get_format_instructions()
             })
 
-            # Log the raw response for debugging
-            print("Raw response:", final_response)
-
-            # Attempt to parse the JSON response
             try:
                 parsed_response = final_parser.parse(final_response)
                 return jsonify(parsed_response)
