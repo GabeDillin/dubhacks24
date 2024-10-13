@@ -1,0 +1,69 @@
+2024-10-13 01:22:53,417 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:22:55,206 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:22:56,872 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:22:57,895 - travel_app - ERROR - Failed to search flights.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/services/amadeus_service.py", line 76, in search_flights
+    response.raise_for_status()
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&departureDate=2023-12-01&adults=2&max=5&nonStop=false&currencyCode=USD&returnDate=2023-12-10
+2024-10-13 01:22:57,899 - travel_app - ERROR - Error searching flights: Failed to search flights: 400 Client Error: Bad Request for url: https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&departureDate=2023-12-01&adults=2&max=5&nonStop=false&currencyCode=USD&returnDate=2023-12-10
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/services/amadeus_service.py", line 76, in search_flights
+    response.raise_for_status()
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&departureDate=2023-12-01&adults=2&max=5&nonStop=false&currencyCode=USD&returnDate=2023-12-10
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/tools/flight_search.py", line 15, in search_flights
+    return service.search_flights(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/services/amadeus_service.py", line 80, in search_flights
+    raise Exception(f"Failed to search flights: {e}")
+Exception: Failed to search flights: 400 Client Error: Bad Request for url: https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&departureDate=2023-12-01&adults=2&max=5&nonStop=false&currencyCode=USD&returnDate=2023-12-10
+2024-10-13 01:22:57,900 - travel_app - ERROR - An error occurred in trip_info endpoint.
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/services/amadeus_service.py", line 76, in search_flights
+    response.raise_for_status()
+  File "/Users/steven/anaconda3/lib/python3.11/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&departureDate=2023-12-01&adults=2&max=5&nonStop=false&currencyCode=USD&returnDate=2023-12-10
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/routes/trip_info_route.py", line 37, in trip_info
+    flight_offers = search_flights(**flight_search_params)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/tools/flight_search.py", line 18, in search_flights
+    raise e
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/tools/flight_search.py", line 15, in search_flights
+    return service.search_flights(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/steven/Documents/GitHub/dubhacks24/backend/services/amadeus_service.py", line 80, in search_flights
+    raise Exception(f"Failed to search flights: {e}")
+Exception: Failed to search flights: 400 Client Error: Bad Request for url: https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=JFK&destinationLocationCode=LAX&departureDate=2023-12-01&adults=2&max=5&nonStop=false&currencyCode=USD&returnDate=2023-12-10
+2024-10-13 01:26:29,744 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:26:31,212 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:26:32,959 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:26:36,627 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 01:31:12,737 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:31:14,190 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:31:15,742 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:31:21,974 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 01:42:37,877 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:42:39,284 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:42:40,894 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:42:44,439 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 01:44:20,807 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:44:22,256 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:44:23,706 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:44:27,176 - travel_app - INFO - Flight offers retrieved successfully.
+2024-10-13 01:45:21,114 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:45:22,513 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:45:23,980 - travel_app - INFO - Access token acquired successfully.
+2024-10-13 01:45:27,416 - travel_app - INFO - Flight offers retrieved successfully.
