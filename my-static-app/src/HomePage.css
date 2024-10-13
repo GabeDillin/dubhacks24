@@ -5,19 +5,21 @@
   background-repeat: no-repeat; /* Prevents the image from repeating */
   height: 100vh; /* Set the frame to fill the full height of the viewport */
   width: 100vw; /* Set the frame to fill the full width of the viewport */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  position: relative; /* Allows for absolute positioning of the button */
 }
 
 .big-button {
-  padding: 15px 30px;
-  font-size: 20px;
+  position: absolute; /* Position the button absolutely within the frame */
+  bottom: 13%; /* Position it 25% from the bottom */
+  right: 6%; /* Position it 25% from the right */
+  height:120px;  
+  width:320px;
+  padding: 0;
+  font-size: 24px;
   border: none;
-  border-radius: 5px;
-  background-color: #007bff;
+  border-radius: 25%;
+  display: block;
+  background-color: #000000;
   color: white;
   cursor: pointer;
   z-index: 1; /* Ensure the button stays above the background */
