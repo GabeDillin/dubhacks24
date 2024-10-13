@@ -1,8 +1,8 @@
 terraform {
   backend "azurerm" {
     resource_group_name   = "TravelAI_group"
-    storage_account_name  = "TravelAI_storage"
-    container_name        = "TravelAI_backend"
+    storage_account_name  = "travelaistorage1"
+    container_name        = "travelai-backend"
     key                   = "terraform.tfstate"
   }
 
