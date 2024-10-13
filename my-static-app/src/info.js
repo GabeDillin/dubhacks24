@@ -1,12 +1,16 @@
+// Info.js
 import React from "react";
-import "./info.css"; // Import your CSS file
+import "./info.css"; // Import the corresponding CSS file
 
 const Info = () => {
   return (
     <div className="hi">
-      {/* The background image is applied through CSS */}
-      <a href="#" target="_blank" rel="noopener noreferrer" aria-label="goes to next page"></a>
-      <button className="big-button" src="https://apple.com" aria-label="goes to next page">Get Started</button>
+      {/* Anchor tag with proper href and accessibility */}
+      <a href="https://www.apple.com" target="_blank" rel="noopener noreferrer">Visit Apple</a>
+      {/* Single button that will trigger navigation or action */}
+      <button className="big-button" onClick={() => window.location.href="https://apple.com"}>
+        Get Started
+      </button>
     </div>
   );
 };

@@ -54,8 +54,8 @@
     left: 35px;
   }
   
-  .frame .pexels-michael-block {
-    background-image: url('./pexels-michael-block-1691617-3225529.png');
+  .pexels-michael-block {
+    background-image: url('../public/img/pexels-michael-block-1691617-3225529.jpg');
     background-size: cover;
     height: 972px;
     width: 1025px;

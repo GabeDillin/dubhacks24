@@ -1,5 +1,6 @@
+// User.js
 import React, { useState } from "react";
-import "./style.css";
+import "./user.css";
 
 export const User = () => {
   const [name, setName] = useState("");
@@ -24,113 +25,119 @@ export const User = () => {
             <div className="text-wrapper-3">Tell me about yourself...</div>
           </div>
           <div className="overlap-3">
-            <div className="form-group">
-              <label className="label">Name:</label>
-              <input
-                className="input-field"
-                type="text"
-                placeholder="ex: Jane Doe"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="label">Age:</label>
-              <input
-                className="input-field"
-                type="number"
-                placeholder="Enter your age"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="label">Gender:</label>
-              <div className="radio-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="Man"
-                    checked={gender === "Man"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  Man
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="Woman"
-                    checked={gender === "Woman"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  Woman
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="gender"
-                    value="Other"
-                    checked={gender === "Other"}
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  Other
-                </label>
+            <form>
+              <div className="form-group">
+                <label className="label">Name:</label>
+                <input
+                  className="input-field name-input"
+                  type="text"
+                  placeholder="ex: Jane Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
-            </div>
 
-            <div className="form-group">
-              <label className="label">Who’s traveling with you?</label>
-              <div className="radio-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="companions"
-                    value="Solo"
-                    checked={companions === "Solo"}
-                    onChange={(e) => setCompanions(e.target.value)}
-                  />
-                  Solo
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="companions"
-                    value="Friends"
-                    checked={companions === "Friends"}
-                    onChange={(e) => setCompanions(e.target.value)}
-                  />
-                  Friends
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="companions"
-                    value="Family"
-                    checked={companions === "Family"}
-                    onChange={(e) => setCompanions(e.target.value)}
-                  />
-                  Family
-                </label>
+              <div className="form-group">
+                <label className="label">Age:</label>
+                <input
+                  className="input-field age-input"
+                  type="number"
+                  placeholder="Enter your age"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                />
               </div>
-            </div>
 
-            <div className="form-group">
-              <label className="label">Location:</label>
-              <input
-                className="input-field"
-                type="text"
-                placeholder="Where do you want to travel from?"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label className="label">Gender:</label>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Man"
+                      checked={gender === "Man"}
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    Man
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Woman"
+                      checked={gender === "Woman"}
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    Woman
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Other"
+                      checked={gender === "Other"}
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    Other
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="label">Who’s traveling with you?</label>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="companions"
+                      value="Solo"
+                      checked={companions === "Solo"}
+                      onChange={(e) => setCompanions(e.target.value)}
+                    />
+                    Solo
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="companions"
+                      value="Friends"
+                      checked={companions === "Friends"}
+                      onChange={(e) => setCompanions(e.target.value)}
+                    />
+                    Friends
+                  </label>
+                  <label className="radio-label">
+                    <input
+                      type="radio"
+                      name="companions"
+                      value="Family"
+                      checked={companions === "Family"}
+                      onChange={(e) => setCompanions(e.target.value)}
+                    />
+                    Family
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="label">Location:</label>
+                <input
+                  className="input-field location-input"
+                  type="text"
+                  placeholder="Where do you want to travel from?"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+              </div>
+
+              {/* You can add a submit button or further navigation here */}
+            </form>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+export default User;
