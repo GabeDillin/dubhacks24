@@ -1,12 +1,15 @@
-import './App.css'; // Import the CSS file for styling
-import HomePage from './HomePage'; // Import the HomePage component
+import React from "react";
+// import {Router, Route, Routes } from "react-router-dom";
+import HomePage from "./HomePage";
+// import PlannerPage from "./PlannerPage"; 
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <HomePage /> {/* Render the HomePage component */}
+    <div>
+      <HomePage/>
     </div>
+  
   );
-}
+};
 
 export default App;
