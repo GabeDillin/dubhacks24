@@ -46,7 +46,7 @@ export const Results = () => {
                   <li key={idx}>{feature}</li>
                 ))
               ) : (
-                <li>No features available</li>
+                <li>{hotel.features}</li>
               )}
             </ul>
           </div>
