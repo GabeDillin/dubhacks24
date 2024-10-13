@@ -5,11 +5,7 @@
   background-repeat: no-repeat; /* Prevents the image from repeating */
   height: 100vh; /* Set the frame to fill the full height of the viewport */
   width: 100vw; /* Set the frame to fill the full width of the viewport */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  position: relative; /* Allows for absolute positioning of the button */
 }
 
 .frame1 .big-button {

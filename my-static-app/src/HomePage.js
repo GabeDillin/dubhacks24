@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div className="frame1">
       <button className="big-button" onClick={() => navigate("/infopage")} aria-label="goes to next page">
-        Get Started
+        Start Planning
       </button>
     </div>
   );
