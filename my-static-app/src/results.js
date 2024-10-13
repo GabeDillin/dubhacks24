@@ -75,7 +75,7 @@ export const Results = () => {
                       <p>Location: {a.location}</p>
                       <p>Dining: {a.dining}</p>
                       <p>Travel: {a.transportation}</p>
-                      <p>Wellness: {a.wellnessTips}</p>
+                      <p>Wellness: {a["wellness tips"]}</p>
                     </div>
                   ))}
                 </div>

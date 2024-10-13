@@ -77,6 +77,9 @@ itinerary_prompt, itinerary_parser = create_structured_prompt(
     Include wellness tips and benefits for each activity, and should be an attribute under each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
     The last activity should be departure, so returning to the airport and returning to {flightFrom}. Transportation should be included for each activity.
     Only give one option for dining per activity.
+    The dates of the itinerary should be from {flightDate} to {flightReturnDate}.
+    Each activity should also have a name of the activity called "acitivity".
+    The wellness tips should be called "wellness tips".
     """,
     itinerary_schemas
 )
