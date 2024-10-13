@@ -26,7 +26,6 @@ def create_structured_prompt(template, response_schemas):
 flight_schemas = [
     ResponseSchema(name="airline", description="The name of the airline"),
     ResponseSchema(name="price", description="The price of the flight"),
-    ResponseSchema(name="link", description="The link to the flight"),
     ResponseSchema(name="first_flight_depart", description="The departure time of the first flight"),
     ResponseSchema(name="first_flight_arrive", description="The arrival time of the first flight"),
     ResponseSchema(name="second_flight_depart", description="The departure time of the second flight"),
