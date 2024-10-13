@@ -1,167 +1,29 @@
-.frame {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .frame .div {
-    background-color: #ffffff;
-    height: 1080px;
-    overflow: hidden;
-    position: relative;
-    width: 1920px;
-  }
-  
-  .frame .overlap-group {
-    background-color: #f2efdf;
-    height: 1080px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1920px;
-  }
-  
-  .frame .overlap {
-    background-color: #23260f;
-    height: 108px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1920px;
-  }
-  
-  .frame .text-wrapper {
-    color: #f2efdf;
-    font-family: "Inter-SemiBold", Helvetica;
-    font-size: 35px;
-    font-weight: 600;
-    left: 127px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 29px;
-    width: 187px;
-  }
-  
-  .frame .line, .frame .img, .frame .line-2 {
-    background-color: #000;
-    height: 1px;
-    width: 52px;
-    position: absolute;
-    top: 37px;
-    left: 35px;
-  }
-  
-  .pexels-michael-block {
-    background-image: url('../public/img/pexels-michael-block-1691617-3225529.jpg');
-    background-size: cover;
-    height: 972px;
-    width: 1025px;
-    position: absolute;
-    top: 108px;
-    left: 0;
-  }
-  
-  .frame .overlap-2 {
-    height: 103px;
-    left: 1100px; /* Aligns closer to the start of the green area */
-    position: absolute;
-    top: 150px; /* Adjust top to fit well in the green area */
-    width: 464px;
-  }
-  
-  .frame .text-wrapper-2 {
-    color: #1e1e1e;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 55px;
-    font-weight: 500;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 464px;
-  }
-  
-  .frame .text-wrapper-3 {
-    color: #1e1e1e;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    font-weight: 500;
-    position: absolute;
-    top: 80px;
-    width: 342px;
-  }
-  
-  .frame .overlap-3 {
-    background-color: #23260f;
-    border-radius: 30px 0px 0px 30px;
-    height: 600px;
-    left: 1100px; /* Align with the green area */
-    position: absolute;
-    top: 280px; /* Move the form down slightly to fit better */
-    width: 600px; /* Make sure the form is narrower to fit the green area */
-    padding: 20px; /* Add padding for spacing */
-  }
-  
-  .frame .text-wrapper-4 {
-    color: #f2efdf;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .frame .overlap-4 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .gender-select {
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    width: 300px;
-    padding: 10px;
-  }
-  
-  .input-field {
-    padding: 10px;
-    font-size: 18px;
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 5px;
-  }
-  
-  .age-input, .name-input, .location-input {
-    background-color: #fff;
-    color: #000;
-    margin-bottom: 20px;
-  }
-  
-  .frame .text-wrapper-10, .frame .text-wrapper-11, .frame .text-wrapper-12, .frame .text-wrapper-17 {
-    color: #f2efdf;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 20px;
-    margin-top: 20px;
-  }
-  
-  .travel-options {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  .travel-option {
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    font-family: "Inter-Medium", Helvetica;
-    color: #1e1e1e;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .travel-option:hover {
-    background-color: #e0e0e0;
-  }
+.frame2 {
+  background-image: url('../public/img/frame2.png'); /* Set the image as background */
+  background-size: cover; /* Ensures the image covers the entire screen */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh; /* Set the frame to fill the full height of the viewport */
+  width: 100vw; /* Set the frame to fill the full width of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.big-button {
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  z-index: 1; /* Ensure the button stays above the background */
+  transition: background-color 0.3s ease;
+}
+
+.big-button:hover {
+  background-color: #0056b3;
+}
