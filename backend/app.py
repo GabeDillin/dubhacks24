@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 
 chat = ChatPerplexity(
-    temperature=0.4,
+    temperature=0,
     model="llama-3.1-sonar-small-128k-online",
     pplx_api_key=os.environ.get("PERPLEXITY_API_KEY")
 )
@@ -70,11 +70,11 @@ itinerary_schemas = [
 
 itinerary_prompt, itinerary_parser = create_structured_prompt(
     """Create an itinerary for {numAdults} for activities, dining, and transportation for a trip to {flightTo} from {flightDate} to {flightReturnDate}.
+    The itinerary should be an array, and each date should be a sub-array with everything else in it. Each date should not be its own array, but should be a json object within the itinerary array.
     The activities on the first and last day when the guests are travelling should be less intense. The activities in the middle of the trip can be more intense.
     If the activities are intense, only include one activity per day. If they are less intense activities on days other than the first and last, include two activities per day.
     Include wellness tips and benefits for each activity, and should be an attribute under each activity. The first activity should be related to arrival and check in, but don't include any specific accommodation.
     The last activity should be departure, so returning to the airport and returning to {flightFrom}. Transportation should be included for each activity.
-    The json attributes under each date should be activities, and attributes in activites should be activity name, location, travel, dining, and wellness.
     Only give one option for dining per activity.
     """,
     itinerary_schemas
@@ -93,6 +93,8 @@ final_prompt, final_parser = create_structured_prompt(
     Flight options: {flight_info}
     Accommodation options: {accommodation_info}
     Itinerary options: {itinerary_info}
+    Each of these three sections should be a json array with each option being a json object.
+    The itinerary should be a json array with each day being a json object. Each day should have a date and a list of activities.
     Only give me the json response, not the budget breakdown or any other text that would cause the response to be invalid for
     json.loads(). Please include everything in a json format do not add comments at the end of your response. Also do not add any
     comments to the json in this format :"// comment"

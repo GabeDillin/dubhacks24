@@ -55,12 +55,18 @@ export const User = () => {
           </div>
           <div className="pexels-michael-block" aria-label="Background image"></div>
           <div className="overlap-2">
-            <div className="text-wrapper-2">Let’s begin.</div>
-            <div className="text-wrapper-3">Tell me about your trip...</div>
+            {loading ? (
+              <div className="text-wrapper-2"> Your trip is being planned...</div>
+            ) : (
+              <>
+                <div className="text-wrapper-2">Let’s begin.</div>
+                <div className="text-wrapper-3">Tell me about your trip...</div>
+              </>
+            )}
           </div>
           <div className="overlap-3">
             {loading ? (
-              <div>Loading...</div>
+              <div className="loading-spinner"></div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
