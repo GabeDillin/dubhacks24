@@ -65,81 +65,95 @@ export const User = () => {
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label className="label">Airport Leaving From:</label>
-                  <input
-                    className="input-field"
-                    type="text"
-                    name="flightFrom"
-                    placeholder="ex: LAX"
-                    value={formData.flightFrom}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      className="input-field"
+                      type="text"
+                      name="flightFrom"
+                      placeholder="ex: LAX"
+                      value={formData.flightFrom}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label className="label">Airport Arriving At:</label>
-                  <input
-                    className="input-field"
-                    type="text"
-                    name="flightTo"
-                    placeholder="ex: JFK"
-                    value={formData.flightTo}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      className="input-field"
+                      type="text"
+                      name="flightTo"
+                      placeholder="ex: JFK"
+                      value={formData.flightTo}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label className="label">Flight Departure Date:</label>
-                  <input
-                    className="input-field"
-                    type="date"
-                    name="flightDate"
-                    value={formData.flightDate}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      className="input-field"
+                      type="date"
+                      name="flightDate"
+                      value={formData.flightDate}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label className="label">Flight Return Date:</label>
-                  <input
-                    className="input-field"
-                    type="date"
-                    name="flightReturnDate"
-                    value={formData.flightReturnDate}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      className="input-field"
+                      type="date"
+                      name="flightReturnDate"
+                      value={formData.flightReturnDate}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label className="label">Budget:</label>
-                  <input
-                    className="input-field"
-                    type="number"
-                    name="budget"
-                    placeholder="Enter your budget"
-                    value={formData.budget}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      className="input-field"
+                      type="number"
+                      name="budget"
+                      placeholder="Enter your budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">
                   <label className="label">Number of Adults:</label>
-                  <input
-                    className="input-field"
-                    type="number"
-                    name="numAdults"
-                    placeholder="Enter number of adults"
-                    value={formData.numAdults}
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrapper">
+                    <input
+                      className="input-field"
+                      type="number"
+                      name="numAdults"
+                      placeholder="Enter number of adults"
+                      value={formData.numAdults}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
-                <button type="submit" className="big-button" aria-label="submit form">Get Started</button>
+                <button type="submit" className="big-button" aria-label="submit form">
+                  Get Started
+                </button>
               </form>
             )}
           </div>

@@ -27,6 +27,17 @@
   width: 1920px;
 }
 
+.label {
+  color: #ffffff;
+  font-family: "Inter-SemiBold", Helvetica;
+  font-size: 14px;
+  font-weight: 600;
+  left: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+}
+
 .frame .text-wrapper {
   color: #f2efdf;
   font-family: "Inter-SemiBold", Helvetica;
@@ -318,6 +329,8 @@
   width: 300px;
   margin-top: 10px;
   border-radius: 5px;
+  left: 25px;
+  position: relative;
 }
 
 .age-input, .name-input, .location-input {
