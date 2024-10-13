@@ -3,8 +3,8 @@ name: 'Terraform Plan and Apply'
 on:
   push:
     paths:
-        - 'terraform/**'
-        - '.github/workflows/terraform.yaml'
+      - 'terraform/**'
+      - '.github/workflows/terraform.yaml'
 
 jobs:
   terraform:
@@ -33,13 +33,16 @@ jobs:
 
       # Step 4: Initialize Terraform
       - name: Terraform Init
+        working-directory: ./terraform  # Specify the Terraform directory
         run: terraform init
 
       # Step 5: Terraform Plan
       - name: Terraform Plan
+        working-directory: ./terraform  # Specify the Terraform directory
         run: terraform plan
 
       # Step 6: Apply Terraform Changes (Optional)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
+        working-directory: ./terraform  # Specify the Terraform directory
         run: terraform apply -auto-approve
