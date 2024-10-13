@@ -6,193 +6,6 @@
   width: 100%;
 }
 
-.frame .overlap-group-wrapper {
-  background-color: #ffffff;
-  height: 1080px;
-  width: 1920px;
-}
-
-.frame .overlap-group {
-  background-color: #f2efdf;
-  height: 1080px;
-  position: relative;
-}
-
-.frame .overlap {
-  background-color: #23260f;
-  height: 108px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 1920px;
-}
-
-.frame .text-wrapper {
-  color: #f2efdf;
-  font-family: "Inter-SemiBold", Helvetica;
-  font-size: 35px;
-  font-weight: 600;
-  left: 120px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 26px;
-  width: 433px;
-}
-
-.frame .line,
-.frame .img,
-.frame .line-2 {
-  background-image: url(../public/img/Line-19.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 1px;
-  width: 52px;
-  position: absolute;
-  left: 17px;
-}
-
-.frame .line {
-  top: 29px;
-}
-
-.frame .img {
-  top: 60px;
-}
-
-.frame .line-2 {
-  top: 44px;
-}
-
-.frame .div {
-  background-image: url(../public/img/pexels-mali-109391-2.png);
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 972px;
-  left: 0;
-  position: absolute;
-  top: 108px;
-  width: 1920px;
-}
-
-.frame .overlap-2 {
-  background-color: #f2efdf;
-  border-radius: 30px;
-  height: 403px;
-  left: 120px;
-  position: absolute;
-  top: 77px;
-  width: 816px;
-}
-
-.frame .travel-mindfully {
-  color: #23260f;
-  font-family: "Inter-Medium", Helvetica;
-  font-size: 100px;
-  font-weight: 500;
-  left: 55px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 35px;
-  width: 705px;
-}
-
-.frame .travelai-brings-the {
-  color: #1e1e1e;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 28px;
-  font-weight: 400;
-  left: 55px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 288px;
-  width: 666px;
-}
-
-.frame .span {
-  color: #1e1e1e;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: 0;
-}
-
-.frame .text-wrapper-2 {
-  font-family: "Inter-Bold", Helvetica;
-  font-weight: 700;
-}
-
-.frame .overlap-3 {
-  background-color: #f2efdf;
-  border-radius: 30px;
-  height: 281px;
-  left: 1010px;
-  position: absolute;
-  top: 552px;
-  width: 826px;
-}
-
-.frame .div-wrapper {
-  background-image: url(../public/img/Rectangle-57.png);
-  background-size: 100% 100%;
-  height: 85px;
-  left: 558px;
-  position: absolute;
-  top: 160px;
-  width: 230px;
-}
-
-.frame .text-wrapper-3 {
-  color: #ffffff;
-  font-family: "Inter-Medium", Helvetica;
-  font-size: 27px;
-  font-weight: 500;
-  left: 23px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 25px;
-}
-
-.frame .according-to-experts {
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 27px;
-  font-weight: 400;
-  left: 58px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 39px;
-  width: 691px;
-}
-
-.frame .text-wrapper-4 {
-  color: #000000;
-  font-family: "Inter-Regular", Helvetica;
-  font-size: 27px;
-  font-weight: 400;
-  letter-spacing: 0;
-}
-
-.frame .text-wrapper-5 {
-  font-family: "Inter-Italic", Helvetica;
-  font-style: italic;
-}
-
-
-
-
-.frame {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-}
-
 .frame .div {
   background-color: #ffffff;
   height: 1080px;
@@ -232,23 +45,45 @@
   width: 187px;
 }
 
-.frame .line, .frame .img, .frame .line-2 {
-  background-color: #000; /* Replace with the appropriate color for the line */
+.frame .line {
+  background-image: url('./line-10.svg');
+  background-size: 100% 100%;
   height: 1px;
-  width: 52px;
-  position: absolute;
-  top: 37px; /* Adjust positions accordingly */
   left: 35px;
+  position: absolute;
+  top: 37px;
+  width: 52px;
+}
+
+.frame .img {
+  background-image: url('./line-11.svg');
+  background-size: 100% 100%;
+  height: 1px;
+  left: 35px;
+  position: absolute;
+  top: 52px;
+  width: 52px;
+}
+
+.frame .line-2 {
+  background-image: url('./line-12.svg');
+  background-size: 100% 100%;
+  height: 1px;
+  left: 35px;
+  position: absolute;
+  top: 68px;
+  width: 52px;
 }
 
 .frame .pexels-michael-block {
-  background-image: url(../public/img/pexels-michael-block-1691617-3225529.jpg);
+  background-image: url('./pexels-michael-block-1691617-3225529.png');
   background-size: cover;
+  background-position: center;
   height: 972px;
-  width: 1025px;
+  left: 0;
   position: absolute;
   top: 108px;
-  left: 0;
+  width: 1025px;
 }
 
 .frame .overlap-2 {
@@ -265,6 +100,8 @@
   font-size: 55px;
   font-weight: 500;
   left: 0;
+  letter-spacing: 0;
+  line-height: normal;
   position: absolute;
   top: 0;
   width: 464px;
@@ -275,8 +112,12 @@
   font-family: "Inter-Medium", Helvetica;
   font-size: 20px;
   font-weight: 500;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
   position: absolute;
   top: 80px;
+  white-space: nowrap;
   width: 342px;
 }
 
@@ -288,65 +129,61 @@
   position: absolute;
   top: 320px;
   width: 811px;
+  padding: 50px;
+  box-sizing: border-box;
 }
 
-.frame .text-wrapper-4 {
+.frame .form-group {
+  margin-bottom: 30px;
+}
+
+.frame .label {
   color: #f2efdf;
   font-family: "Inter-Medium", Helvetica;
   font-size: 20px;
-  position: absolute;
-  top: 197px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 10px;
 }
 
-.frame .overlap-4 {
-  height: 43px;
-  left: 62px;
-  position: absolute;
-  top: 231px;
-}
-
-.gender-select {
-  font-family: "Inter-Medium", Helvetica;
-  font-size: 20px;
-  width: 300px;
-  padding: 10px;
-}
-
-.input-field {
+.frame .input-field {
+  width: 100%;
   padding: 10px;
   font-size: 18px;
-  width: 300px;
-  margin-top: 10px;
   border-radius: 5px;
+  border: none;
 }
 
-.age-input, .name-input, .location-input {
-  background-color: #fff;
-  color: #000;
+.frame .input-field::placeholder {
+  color: #9ba7bf;
 }
 
-.frame .text-wrapper-10, .frame .text-wrapper-11, .frame .text-wrapper-12, .frame .text-wrapper-17 {
-  color: #f2efdf;
+.frame .radio-group {
+  display: flex;
+  gap: 30px;
+}
+
+.frame .radio-label {
+  color: #9ba7bf;
   font-family: "Inter-Medium", Helvetica;
   font-size: 20px;
+  font-weight: 500;
 }
 
-.travel-options {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+.frame .radio-label input {
+  margin-right: 5px;
 }
 
-.travel-option {
-  padding: 10px;
-  background-color: #fff;
+.frame .big-button {
+  padding: 10px 20px;
+  border: none;
   border-radius: 5px;
-  font-family: "Inter-Medium", Helvetica;
-  color: #1e1e1e;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.travel-option:hover {
-  background-color: #e0e0e0;
+.frame .big-button:hover {
+  background-color: #0056b3;
 }
