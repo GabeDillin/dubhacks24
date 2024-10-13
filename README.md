@@ -5,7 +5,7 @@ In a fast-paced world filled with daily stress and limited time for self-care, w
 TravelAI is a smart app that creates personalized itineraries for wellness trips. Users simply input their preferences, such as preferred destination, the activities they are interested in, and how long they plan to stay. The app uses AI to curate a perfect itinerary tailored to the user’s wellness needs, including accommodations, activities, local wellness spots, and even meal suggestions that promote well-being. It takes the stress out of planning, allowing users to focus on enjoying their rejuvenation journey.
 
 ## How we built it
-Implemented perplexity LLM along with Amadeus flights API secured using OAuth and verification. Used Figma and React to design and develop the front end. 
+Implemented perplexity LLM along with Amadeus flights API secured using OAuth and verification. Used Figma and React to design and develop the front end. Provisioned a SQL database and Azure connection with Terraform for future development. Also secured environment variables and API keys with a Terraform CICD pipeline on Github actions.
 
 ## Challenges we ran into
 Additionally, integrating multiple APIs to pull travel data, wellness services, and local information in real-time required fine-tuning to ensure accuracy and user satisfaction. Another challenge was designing an interface that was both intuitive and flexible, so users with various levels of tech-savviness could easily navigate the app.
