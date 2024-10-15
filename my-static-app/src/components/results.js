@@ -2,16 +2,27 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./user.css"; // Import user.css for consistent styling
 import "./results.css"; // Import results.css for specific styling
+import { useVacationController } from "../controllers/vacationController";
 
 export const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { data } = location.state;
-
+  const {createVacation} = useVacationController();
   const handleBack = () => {
     navigate("/");
   };
-
+  const handleSave = async () => {
+    try {
+      // Save the vacation data using the controller
+      await createVacation(data);
+      alert("Vacation saved successfully!");
+      navigate("/vacations"); // Redirect to the vacations list page after saving
+    } catch (error) {
+      console.error("Error saving vacation:", error);
+      alert("Failed to save vacation.");
+    }
+  };
   return (
     <div className="frame">
       <div className="div">
@@ -81,6 +92,9 @@ export const Results = () => {
                 </div>
               ))}
             </div>
+            <button onClick={handleSave} className="big-button save-button">
+          Save Vacation
+          </button>
           </div>
         </div>
       </div>

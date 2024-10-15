@@ -1,13 +1,13 @@
-package com.travelAI.dubhacks24;
+package com.travelAI.TravelAIdb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Dubhacks24Application {
+public class TravelAIdbApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Dubhacks24Application.class, args);
+		SpringApplication.run(TravelAIdbApplication.class, args);
 	}
 
 }

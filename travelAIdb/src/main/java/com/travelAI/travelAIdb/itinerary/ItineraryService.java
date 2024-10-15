@@ -1,4 +1,4 @@
-package com.travelAI.dubhacks24.itinerary;
+package com.travelAI.TravelAIdb.itinerary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.travelAI.dubhacks24.itinerary;
+package com.travelAI.TravelAIdb.itinerary;
 
 import jakarta.persistence.*;
 
@@ -19,7 +19,7 @@ public class Itinerary {
     private long id;
 
     // Changed the column name to jsonData
-    @Column(name = "jsonData", columnDefinition = "NVARCHAR(MAX)")
+    @Column(name = "jsonData", columnDefinition = "TEXT")
     private String jsonData;  // This field will hold the JSON data
 
     // Default constructor

@@ -1,10 +1,10 @@
-package com.travelAI.dubhacks24;
+package com.travelAI.travelAIdb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Dubhacks24ApplicationTests {
+class TravelAIdbApplicationTests {
 
 	@Test
 	void contextLoads() {
