@@ -1,7 +1,7 @@
-package com.travelAI.TravelAIdb.itinerary;
+package com.travelAI.TravelAIdb.vacation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItineraryRepository extends JpaRepository<Itinerary, Long> {
+public interface VacationRepository extends JpaRepository<Vacation, Long> {
 }

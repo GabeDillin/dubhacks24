@@ -1,20 +1,20 @@
-package com.travelAI.TravelAIdb.itinerary;
+package com.travelAI.TravelAIdb.vacation;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "itinerary")  // Optional, you can specify a custom table name
-public class Itinerary {
+@Table(name = "vacations")  // Optional, you can specify a custom table name
+public class Vacation {
 
     @Id
     @SequenceGenerator(
-            name = "itinerary_sequence",
-            sequenceName = "itinerary_sequence",
+            name = "vacation_sequence",
+            sequenceName = "vacation_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "itinerary_sequence"
+            generator = "vacation_sequence"
     )
     private long id;
 
@@ -23,24 +23,24 @@ public class Itinerary {
     private String jsonData;  // This field will hold the JSON data
 
     // Default constructor
-    public Itinerary() {
+    public Vacation() {
     }
 
     // Constructor with all fields
-    public Itinerary(long id, String jsonData) {
+    public Vacation(long id, String jsonData) {
         this.id = id;
         this.jsonData = jsonData;
     }
 
     // Constructor without the ID (for creation scenarios)
-    public Itinerary(String jsonData) {
+    public Vacation(String jsonData) {
         this.jsonData = jsonData;
     }
 
     // Overriding the toString method to include the jsonData
     @Override
     public String toString() {
-        return "Itinerary{" +
+        return "Vacation{" +
                 "id=" + id +
                 ", jsonData='" + jsonData + '\'' +
                 '}';

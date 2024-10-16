@@ -15,7 +15,6 @@ export const useVacationController = () => {
       const response = await VacationService.getAll();
       
       //console.log("hello world");
-      console.log(response.data[0].jsonData);
       const jsonString = response.data[0].jsonData;
       const jsonData = JSON.parse(jsonString);
       console.log(jsonData);

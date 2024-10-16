@@ -1,30 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useVacationController } from "../controllers/vacationController"; // Assuming the controller is set up for fetching
+import React, { useEffect } from "react";
+import { useVacationController } from "../controllers/vacationController";
 
 export const VacationList = () => {
-  const { vacations, fetchVacations } = useVacationController(); // Assuming fetchObjects retrieves the saved vacations
-  const [vacationsData, setVacationsData] = useState([]); // State to store the fetched vacations
+  const { vacations, loading, error, fetchVacations } = useVacationController();
 
   useEffect(() => {
-    // Fetch all saved vacations on component mount
-    fetchVacations()
-      .then((data) => {
-        setVacationsData(data); // Store the fetched vacations in state
-        console.log("Fetched Vacations: ", data); // Log the fetched vacations
-      })
-      .catch(console.error);
-  }, [fetchVacations]);
+    fetchVacations();
+    console.log(vacations)
+  }, []);
 
+  if (loading) {
+    return <p>Loading vacation...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  // Check if vacations is defined and not null before accessing its fields
+  if (!vacations) {
+    return <p>No vacation data available.</p>;
+  }
+
+  // Assuming vacations is a single object
   return (
     <div className="vacations-list">
-      <h1>All Saved Vacations</h1>
-      <div className="vacations-container">
-        {vacationsData?.map((vacation, index) => (
-          <div className="vacation-card" key={index}>
-            <h3>Destination: {vacation.flights[0].first_flight_arrive}</h3>
-            <p>Date: {vacation.itinerary[0].date}</p>
-          </div>
-        ))}
+      <h1>Saved Vacations</h1>
+      <div className="vacation-card">
+        <h3>Start: {vacations.flights?.[0]?.first_flight_arrive || "Unknown"} End: {vacations.flights?.[0]?.second_flight_depart || "Unknown"}</h3>
+        <p></p>
       </div>
     </div>
   );
