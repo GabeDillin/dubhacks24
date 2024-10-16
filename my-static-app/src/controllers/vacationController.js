@@ -7,13 +7,20 @@ export const useVacationController = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch all objects
+  // Fetch all objects (currently just one json object)
   const fetchVacations = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await VacationService.getAll();
-      setVacations(response.data);
+      
+      //console.log("hello world");
+      console.log(response.data[0].jsonData);
+      const jsonString = response.data[0].jsonData;
+      const jsonData = JSON.parse(jsonString);
+      console.log(jsonData);
+      setVacations(jsonData);
+      
     } catch (err) {
       setError('Failed to fetch vacations');
     } finally {

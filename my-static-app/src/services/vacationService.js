@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Set the base URL for the API
-const BASE_URL = 'http://localhost:8080/api/v1/'; // Replace with your API base URL
+const BASE_URL = 'http://localhost:8080/api/v1'; // Replace with your API base URL
 const VacationService = {
   // GET: Fetch all objects
   getAll: async () => {

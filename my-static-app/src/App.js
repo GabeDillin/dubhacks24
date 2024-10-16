@@ -14,7 +14,6 @@ function App() {
         <Route path="/infopage" element={<Info />} />
         <Route path="/user" element={<User />} />
         <Route path="/results" element={<Results />} />
-        
         <Route path="/vacationList" element={<VacationList />} />
       </Routes>
     </Router>
