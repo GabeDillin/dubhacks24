@@ -9,7 +9,7 @@ export const Results = () => {
   const navigate = useNavigate();
   const { data } = location.state || {}; // Ensure data is defined
   const { createVacation } = useVacationController();
-
+  console.log(JSON.stringify(data));
   const handleBack = () => {
     navigate("/");
   };
