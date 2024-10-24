@@ -1,9 +1,10 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./HomePage";
-import Info from "./infopage";
-import { User } from "./User";
-import { Results } from "./results";
+import HomePage from "./components/HomePage";
+import Info from "./components/infopage";
+import { User } from "./components/User";
+import { Results } from "./components/results";
+import { VacationList } from "./components/VacationList";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/infopage" element={<Info />} />
         <Route path="/user" element={<User />} />
         <Route path="/results" element={<Results />} />
+        <Route path="/vacationList" element={<VacationList />} />
       </Routes>
     </Router>
   );

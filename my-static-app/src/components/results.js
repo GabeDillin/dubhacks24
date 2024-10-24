@@ -2,14 +2,28 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./user.css"; // Import user.css for consistent styling
 import "./results.css"; // Import results.css for specific styling
+import { useVacationController } from "../controllers/vacationController";
 
 export const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { data } = location.state;
-
+  const { data } = location.state || {}; // Ensure data is defined
+  const { createVacation } = useVacationController();
+  console.log(JSON.stringify(data));
   const handleBack = () => {
     navigate("/");
+  };
+
+  const handleSave = async () => {
+    try {
+      await createVacation(data);
+      alert("Vacation saved successfully!");
+      console.log("Vacation saved successfully");
+      navigate("/vacationList"); // Redirect to the vacations list page after saving
+    } catch (error) {
+      console.error("Error saving vacation:", error);
+      alert("Failed to save vacation.");
+    }
   };
 
   return (
@@ -21,7 +35,9 @@ export const Results = () => {
             <div className="line" aria-label="Line"></div>
             <div className="img" aria-label="Line"></div>
             <div className="line-2" aria-label="Line"></div>
-            <button onClick={handleBack} className="big-button back-button">Back</button>
+            <button onClick={handleBack} className="big-button back-button">
+              Back
+            </button>
           </div>
           <div className="pexels-michael-block" aria-label="Background image"></div>
           <div className="overlap-2">
@@ -30,7 +46,7 @@ export const Results = () => {
           <div className="overlap-3">
             <div className="cards-container">
               <h2>Flights</h2>
-              {data.flights.map((flight, index) => (
+              {data?.flights?.map((flight, index) => (
                 <div className="card" key={index}>
                   <h3>Flight {index + 1}</h3>
                   <p>Airline: {flight.airline}</p>
@@ -41,12 +57,12 @@ export const Results = () => {
                   <p>Departure: {flight.second_flight_depart}</p>
                   <p>Arrival: {flight.second_flight_arrive}</p>
                   <p>Price: {flight.price}</p>
-                  <p>Emissions: {flight.emissions_data.estimated_emissions}</p>
+                  <p>Emissions: {flight.emissions_data?.estimated_emissions}</p>
                 </div>
               ))}
 
               <h2>Accommodation</h2>
-              {data.accommodation.map((hotel, index) => (
+              {data?.accommodation?.map((hotel, index) => (
                 <div className="card" key={index}>
                   <h3>{hotel.name}</h3>
                   <p>Location: {hotel.location}</p>
@@ -66,10 +82,12 @@ export const Results = () => {
               ))}
 
               <h2>Itinerary</h2>
-              {data.itinerary.map((day, index) => (
+              {data?.itinerary?.map((day, index) => (
                 <div className="card" key={index}>
-                  <h3>Day {index + 1} - {day.date}</h3>
-                  {day.activities.map((a, idx) => (
+                  <h3>
+                    Day {index + 1} - {day.date}
+                  </h3>
+                  {day?.activities?.map((a, idx) => (
                     <div key={idx}>
                       <p>Activity: {a.activity}</p>
                       <p>Location: {a.location}</p>
@@ -81,6 +99,9 @@ export const Results = () => {
                 </div>
               ))}
             </div>
+            <button onClick={handleSave} className="big-button save-button">
+              Save Vacation
+            </button>
           </div>
         </div>
       </div>

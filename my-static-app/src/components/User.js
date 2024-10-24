@@ -26,6 +26,7 @@ export const User = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      console.log("here");
       const response = await fetch("http://127.0.0.1:5000/trip-info", {
         method: "POST",
         headers: {
